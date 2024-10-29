@@ -80,7 +80,8 @@ const DriverSchedule = ({ user, onLogout }) => {
   useEffect(() => {
     const fetchSchedule = async () => {
       try {
-        const scheduleData = await getSchedule(user.role, user.id);
+        const today = new Date().toLocaleDateString('en-CA'); // Format: YYYY-MM-DD
+        const scheduleData = await getSchedule(user.role, user.id, today); 
         setSchedules(scheduleData);
       } catch (error) {
         setError(error.message || 'Failed to load schedule');

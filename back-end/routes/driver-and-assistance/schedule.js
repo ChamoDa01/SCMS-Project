@@ -5,11 +5,7 @@ const { calculateExpectedTimes, getShipmentStatus } = require('./utils/timeUtils
 
 router.get('/:role/:id/schedule', async (req, res) => {
   const { role, id } = req.params;
-  
-  const mDay = new Date();
-  const today = mDay.getFullYear() + '-' + 
-    String(mDay.getMonth() + 1).padStart(2, '0') + '-' + 
-    String(mDay.getDate()).padStart(2, '0');
+  const { date } = req.query;
   
   const getStatus = getShipmentStatus();
 
@@ -28,7 +24,7 @@ router.get('/:role/:id/schedule', async (req, res) => {
        JOIN Drivers d ON s.DriverID = d.DriverID
        JOIN DrivingAssistants da ON s.DrivingAssistantID = da.DrivingAssistantID
        WHERE s.${idField} = ? AND s.Date = ?`,
-      [id, today]
+      [id, date]
     );
 
     const formattedShipments = shipments.map(shipment => ({
