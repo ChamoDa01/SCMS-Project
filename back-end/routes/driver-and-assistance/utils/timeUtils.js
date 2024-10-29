@@ -21,13 +21,13 @@ const calculateExpectedTimes = (startTime, endTime, orderCount) => {
   const getShipmentStatus = () => {
     // Get current time in local timezone
     const now = new Date();
+    console.log(now);
     
     return function(startTime, endTime) {
-        // Convert to today's date in local timezone
-        const today = now.toLocaleDateString('en-CA');
+        // Convert to today's date in iso timezone
+        const today = now.toISOString().slice(0, 10);
         const start = new Date(`${today} ${startTime}`);
         const end = new Date(`${today} ${endTime}`);
-  
         
 
         if (now >= start && now <= end) {
