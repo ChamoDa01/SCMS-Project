@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../../dbconfig');
-const { calculateExpectedTimes, getShipmentStatus } = require('./utils/timeUtils');
+const { calculateExpectedTimes } = require('./utils/timeUtils');
 
 router.get('/:role/:id/schedule', async (req, res) => {
   const { role, id } = req.params;
   const { date } = req.query;
   
-  const getStatus = getShipmentStatus();
+  
 
   
   try {
@@ -35,7 +35,6 @@ router.get('/:role/:id/schedule', async (req, res) => {
       mainTowns: shipment.MainTowns,
       truck: `TRK-${shipment.TruckID}`,
       remainingCapacity: shipment.RemainingCapacity,
-      status: getStatus(shipment.StartTime, shipment.EndTime),
       [role === 'driver' ? 'assistant' : 'driver']: 
         role === 'driver' ? shipment.AssistantName : shipment.DriverName
     }));
