@@ -1,11 +1,24 @@
-// index.js
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 
-// Enable CORS for all routes
-app.use(cors());
+const allowedOrigins = [
+    "https://serenehills.netlify.app",
+    "https://sereneadmin.netlify.app",
+    "https://serenestore.netlify.app"
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    }
+}));
+
 app.use(bodyParser.json());
 
 // Customer-end routes
