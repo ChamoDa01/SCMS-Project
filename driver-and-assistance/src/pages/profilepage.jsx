@@ -57,7 +57,15 @@ const ProfilePage = ({ user, onLogout }) => {
   if (loading) return <LoadingSpinner />;
   if (!profile) return null;
 
-  const weeklyHoursPercentage = (profile.weeklyHours / 40) * 100;
+  let weeklyHoursPresentage;
+  if (user.role === 'driver'){
+    weeklyHoursPresentage = (profile.weeklyHours / 40) * 100 ;
+  }
+  else if (user.role === 'assistant'){
+    weeklyHoursPresentage = (profile.weeklyHours / 60) * 100 ;
+  }
+
+  const totalHours = user.role === 'driver' ? 40 : 60 ;
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -160,7 +168,7 @@ const ProfilePage = ({ user, onLogout }) => {
               color="primary"
               sx={{ mt: 2, fontWeight: 'medium' }}
             >
-              {profile.weeklyHours} / 40 hours
+              {profile.weeklyHours} / {totalHours} hours
             </Typography>
           </Box>
         </CardContent>
