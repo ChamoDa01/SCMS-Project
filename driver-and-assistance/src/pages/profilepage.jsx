@@ -57,14 +57,13 @@ const ProfilePage = ({ user, onLogout }) => {
   if (loading) return <LoadingSpinner />;
   if (!profile) return null;
 
-  let weeklyHoursPresentage;
+  let weeklyHoursPercentage;
   if (user.role === 'driver'){
-    weeklyHoursPresentage = (profile.weeklyHours / 40) * 100 ;
+    weeklyHoursPercentage = (profile.weeklyHours / 40) * 100 ;
   }
   else if (user.role === 'assistant'){
-    weeklyHoursPresentage = (profile.weeklyHours / 60) * 100 ;
+    weeklyHoursPercentage = (profile.weeklyHours / 60) * 100 ;
   }
-
   const totalHours = user.role === 'driver' ? 40 : 60 ;
 
   return (
